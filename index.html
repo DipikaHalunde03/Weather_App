@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather_App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+            body {
+            background-image: url('weather.jpg'); /* Replace with the actual URL of your image */
+            background-size: cover; /* Cover the entire background */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            background-attachment: fixed; /* Keep the background fixed when scrolling */
+            background-position: center; /* Center the background image */
+            color: #ffffff; /* Set default text color to white for better contrast */
+        }
+         #navBar {
+            color: white;
+            
+            background-color: #343a40; /* Dark Gray Background */
+        }
+        #navBar .navbar-brand {
+            color: #ffcc00; /* Golden Yellow for Brand */
+            font-weight: bold;
+        }
+
+        #navBar .navbar-nav .nav-link {
+            color: #ffffff; /* White Text for Links */
+            margin-right: 15px; /* Spacing between Links */
+            transition: color 0.3s ease; /* Smooth Color Transition */
+        }
+
+        #navBar .navbar-nav .nav-link:hover {
+            color: #ffcc00; /* Hover Effect with Golden Yellow */
+        }
+
+        #navBar .navbar-nav .nav-link.active {
+            color: #ffcc00; /* Active Link in Golden Yellow */
+            border-bottom: 2px solid #ffcc00; /* Bottom Border for Active Link */
+        }
+
+        #navBar .navbar-toggler {
+            border-color: #ffcc00; /* Golden Yellow for Toggler Button */
+        }
+
+        #navBar .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23ffcc00' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); /* Custom Toggler Icon */
+        }
+
+        #navBar .form-control {
+            background-color: #f8f9fa; /* Light Gray Background for Search */
+            border: 1px solid #ffcc00; /* Golden Yellow Border */
+            color: #343a40; /* Dark Text */
+        }
+
+        #navBar .btn-outline-success {
+            color: #ffcc00; /* Golden Yellow Text */
+            border-color: #ffcc00; /* Golden Yellow Border */
+        }
+
+        #navBar .btn-outline-success:hover {
+            background-color: #ffcc00; /* Golden Yellow Background on Hover */
+            color: #343a40; /* Dark Text on Hover */
+        }
+           /* Custom Card Styles */
+           .card {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #343a40; /* Dark Gray Border */
+        }
+
+        .card-header {
+            background-color: #53e3eb; /* Golden Yellow Background for Header */
+            color: #343a40; /* Dark Text */
+            font-weight: bold;
+            border-bottom: 2px solid #343a40; /* Dark Gray Border Bottom */
+        }
+
+        .card-body {
+            background-color: #f8f9fa; /* Light Gray Background for Body */
+            color: #343a40; /* Dark Text */
+        }
+
+        .card-body h1.card-title {
+            color: #343a40; /* Dark Gray Text for Title */
+            font-size: 2rem; /* Larger Font Size */
+            margin-bottom: 20px;
+        }
+
+        .card-body ul li {
+            font-size: 1.2rem; /* Increase Font Size for List Items */
+            margin-bottom: 10px;
+        }
+
+        .card-body ul li span {
+            font-weight: bold; /* Bold for Span Elements */
+            color: #63d9fa; /* Golden Yellow for Highlighted Values */
+        }
+
+        .text-bg-primary {
+            background-color: #343a40 !important; /* Dark Gray Background for Wind Info */
+            color: #ffcc00 !important; /* Golden Yellow Text */
+        }
+
+        .text-bg-primary h4 {
+            color: #ffcc00; /* Golden Yellow Text */
+        }
+
+        .border-primary {
+            border-color: #ffcc00 !important; /* Golden Yellow Border */
+        }
+
+        .shadow-sm {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle Shadow for Depth */
+        }
+    </style>
+</head>
+  <body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <nav class="navbar navbar-expand-lg  bg-color-gray " id="navBar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Weather App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About this website</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Usage Guide</a>
+                    </li>
+                    
+
+                </ul>
+                <form class="d-flex" role="search">
+                    <input id="city" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit" id="sub">Search</button>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" id="back">
+        <h1 class="my-4 text-center">Weather of <span id="cityName"></span></h1>
+        <main>
+            <div class="container my-5">
+                <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal"><b>Temperatures</b></h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title"><small
+                                        class="text-body-secondary fw-light"></small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>Temperature is <span id='temp'></span></li>
+                                    <li> Heat-Index-C<span id='min_temp'></span></li>
+                                    <li> Heat-Index-F<span id='max_temp'></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm">
+                            <div class="card-header py-3">
+                                <h4 class="my-0 fw-normal"><b>Humidity Info</b></h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title"><small
+                                        class="text-body-secondary fw-light"></small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>Cloud PCT is <span id='cloud_pct'></span></li>
+                                    <li>Feels Like is <span id='feels_like'></span></li>
+                                    <li>Humidity is <span id='humidity'></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm ">
+                            <div class="card-header py-3 ">
+                                <h4 class="my-0 fw-normal"><b>Wind Info</b></h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title"><small
+                                        class="text-body-secondary fw-light"></small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>Wind Speed is <span id='wind_speed'></span></li>
+                                    <li>Wind Degrees is <span id='wind_degrees'></span></li>
+                                    <li>dewpoint -C<span id='sunrise'></span></li>
+                                    <li>dewpoint -F <span id='sunset'></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2 class="display-6 text-center mb-4"><b>Weather of other cities</b></h2>
+
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th style="width: 34%;"></th>
+                            <th style="width: 22%;">Cloud_pct</th>
+                            <th style="width: 22%;">Temp</th>
+                            <th style="width: 22%;">Feels_like</th>
+                            <th style="width: 22%;">Humidity</th>
+                            <th style="width: 22%;">Min_temp</th>
+                            <th style="width: 22%;">Max_temp</th>
+                            <th style="width: 22%;">Wind_speed</th>
+                            <th style="width: 22%;">Wind_degrees</th>
+                            <th style="width: 22%;">Sunrise</th>
+                            <th style="width: 22%;">Sunset</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-start">Buffalo</th>
+                            
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">California</th>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                        </tr>
+                    </tbody>
+
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-start">Ranchi</th>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-start">Dublin</th>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+
+
+
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    
+</body>
+
+</html>
